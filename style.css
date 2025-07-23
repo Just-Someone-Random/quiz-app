@@ -18,7 +18,7 @@ body{
   --theme:#2f374d;
 }
 .lightmode #id1{
-  transform:translate(600px,-200px);/*this value changes wrt to the initial value where it was placed*/
+  transform:translate(900px,-200px);/*this value changes wrt to the initial value where it was placed*/
 }
 .lightmode #id2{
   transform:translate(-300px,300px);
@@ -78,6 +78,6 @@ transition:transform 1.2s ease;
 }
 
 #id2{
- transform:translate(600px,300px); 
+ transform:translate(1200px,300px); 
  transition:transform 1.2s ease;
 }
