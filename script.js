@@ -12,9 +12,16 @@ const op2 = document.getElementById("op2");
 const op3 = document.getElementById("op3");
 const op4 = document.getElementById("op4");
 const next = document.getElementById("submit-quiz");
-const end = document.getElementById('end');
-const resultContainer=document.getElementById('result-container');
-const result=document.getElementById('result');
+const end = document.getElementById("end");
+const resultContainer = document.getElementById("result-container");
+const result = document.getElementById("result");
+
+const question = document.getElementById("question");
+const option1 = document.getElementById("option1");
+const option2 = document.getElementById("option2");
+const option3 = document.getElementById("option3");
+const option4 = document.getElementById("option4");
+const correct = document.getElementById("correct");
 
 let score = 0;
 let options = [op1, op2, op3, op4];
@@ -26,13 +33,6 @@ themeBtn.addEventListener("click", function () {
 let num = 0;
 add.addEventListener("click", function (e) {
   e.preventDefault();
-
-  const question = document.getElementById("question");
-  const option1 = document.getElementById("option1");
-  const option2 = document.getElementById("option2");
-  const option3 = document.getElementById("option3");
-  const option4 = document.getElementById("option4");
-  const correct = document.getElementById("correct");
 
   if (
     question.value &&
@@ -69,8 +69,7 @@ quizBtn.addEventListener("click", function (e) {
     alert("Please fill the form first .");
     return;
   }
-  content.style.display = "none";
-  quizContainer.style.display = "flex";
+  switchWindows(content, quizContainer);
   q.textContent = form[0][0];
   op1.textContent = form[0][1];
   op2.textContent = form[0][2];
@@ -92,20 +91,20 @@ next.addEventListener("click", function () {
     }
   });
 
-  if(i==num){
-    next.style.display="none";
-    end.style.display="flex";
-    end.style.justifyContent="center";
-    end.style.alignItems="center";
-    end.style.width="40%";
-    end.style.borderRadius="50px";
+  if (i == num) {
+    next.style.display = "none";
+    end.style.display = "flex";
+    end.style.justifyContent = "center";
+    end.style.alignItems = "center";
+    end.style.width = "40%";
+    end.style.borderRadius = "50px";
   }
-  
+
   if (i < num) {
     options.forEach((btn) => {
-    btn.classList.remove("selected");
-  });
-  
+      btn.classList.remove("selected");
+    });
+
     q.textContent = form[i][0];
     op1.textContent = form[i][1];
     op2.textContent = form[i][2];
@@ -116,11 +115,10 @@ next.addEventListener("click", function () {
   }
 });
 
-end.addEventListener('click',function(){
-quizContainer.style.display="none";
-resultContainer.style.display="flex";
+end.addEventListener("click", function () {
+  switchWindows(quizContainer, resultContainer);
 
-result.textContent="You scored "+score +" out of "+num;
+  result.textContent = "You scored " + score + " out of " + num;
 });
 
 options.forEach((op) => {
@@ -129,3 +127,45 @@ options.forEach((op) => {
     op.classList.add("selected");
   };
 });
+
+//pressing enter to jump to another input field
+question.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") option1.focus();
+});
+
+option1.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") option2.focus();
+});
+
+option2.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") option3.focus();
+});
+
+option3.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") option4.focus();
+});
+
+option4.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") correct.focus(); //used gpt
+});
+
+correct.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    add.click();
+    question.focus();
+  }
+});
+
+//switching between windows
+function switchWindows(fromW, toW) {
+  fromW.classList.add("fade-out");
+
+  fromW.classList.remove("fade-in");
+
+  setTimeout(() => {
+    fromW.style.display = "none"; //this is here because we have to wait 0.5 s for the animation to carry out
+    toW.style.display = "flex";
+    toW.classList.remove("fade-out");
+    toW.classList.add("fade-in");
+  }, 500);
+}
