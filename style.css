@@ -2,7 +2,7 @@
   --primary-color: #2f374d;
   --secondary-color: #344458;
   --theme: rgb(255, 255, 255);
-  --glow:255,255,255;
+  --glow: 255, 255, 255;
   --form: rgba(47, 55, 77, 0.6);
 }
 
@@ -14,12 +14,14 @@
   --primary-color: #e2e2e2;
   --secondary-color: #a3a3ad;
   --theme: rgb(47, 55, 77);
-  --glow:47,55,77;
+  --glow: 47, 55, 77;
   --form: #e2e2e2c3;
 }
 
-h1,h2,label{
-  text-shadow:1px 1px 8px rgba(var(--glow),0.3);/*only use var like this , if ur using rgb values*/
+h1,
+h2,
+label {
+  text-shadow: 1px 1px 8px rgba(var(--glow), 0.3); /*only use var like this , if ur using rgb values*/
 }
 
 body {
@@ -154,11 +156,11 @@ form button {
   border: none;
   border-radius: 50px;
   height: 35px;
-  margin-bottom:10px;
-  color:var(--theme);
-  border:1px solid var(--theme);
-  font-weight:600;
-  background-color:var(--secondary-color);
+  margin-bottom: 10px;
+  color: var(--theme);
+  border: 1px solid var(--theme);
+  font-weight: 600;
+  background-color: var(--secondary-color);
 }
 
 #quiz-container {
@@ -193,8 +195,8 @@ h1 {
   height: 35px;
   width: 70%;
 }
-#quiz-container #submit-quiz, #end{
-
+#quiz-container #submit-quiz,
+#end {
   height: 30px;
   width: 30%;
   border-radius: 50px;
@@ -202,40 +204,77 @@ h1 {
 #quiz-container button.selected {
   background-color: #0080ff95;
   color: white;
-  border: 1px solid #0080FF;
+  border: 1px solid #0080ff;
 }
 
-#result-container{
-border:none;
-position:absolute;
-border-radius:20px;
-background-color:var(--form);
-color:var(--theme);
-width: 50%;
-height: 70%;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-display:none;
-justify-content:center;
-align-items:center;
+#result-container {
+  border: none;
+  position: absolute;
+  border-radius: 20px;
+  background-color: var(--form);
+  color: var(--theme);
+  width: 50%;
+  height: 70%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+  justify-content: center;
+  align-items: center;
 }
 
-@keyframes float{
-  from{
-    transform:translateY(0px);
+@keyframes float {
+  from {
+    transform: translateY(0px);
   }
-  to{
-    transform:translateY(-40px);
+  to {
+    transform: translateY(-40px);
   }
 }
 
-button:hover{
-  transform:scaleZ(1.5);
-  box-shadow:0 4px 12px rgba(0,0,0,0.5);
-  transition:transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+button:hover {
+  transform: scaleZ(1.5);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
 }
-#float-wrapper{/*added this class because if i added transform to both animation and transition then they were overriding each other but adding a div takes that problem away*/
+#float-wrapper {
+  /*added this class because if i added transform to both animation and transition then they were overriding each other but adding a div takes that problem away*/
 
-  animation:float 4s ease-in-out infinite alternate;
+  animation: float 4s ease-in-out infinite alternate;
+}
+
+@keyframes fadeOut {
+  0% {
+    transform: translate(-50%, -50%) scaleZ(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-50%, -50%) scaleZ(0.85);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scaleZ(0.7);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scaleZ(0.7); /*use composite transform functions so that it doesnt override the previous transform function */
+  }
+  50% {
+    transform: translate(-50%, -50%) scaleZ(0.85);
+  }
+  100% {
+    transform: translate(-50%, -50%) scaleZ(1);
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.fade-out {
+  animation: fadeOut 0.5s ease forwards;
 }
